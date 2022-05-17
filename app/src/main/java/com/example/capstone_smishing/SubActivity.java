@@ -6,8 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class SubActivity extends AppCompatActivity {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+public class SubActivity extends AppCompatActivity {
+    public static String extractUrl(String content){
+        try {
+            String REGEX = "\b(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~|!:,.;]*[-a-zA-Z0-9+&@#/%=~|]";
+            Pattern p = Pattern.compile(REGEX, Pattern.CASE_INSENSITIVE);
+            Matcher m = p.matcher(content);
+            if (m.find()) {
+                return m.group();
+            }
+            return "";
+        } catch (Exception e) {
+            return "";
+        }
+    }
     TextView tv_suburl;
 
     @Override
